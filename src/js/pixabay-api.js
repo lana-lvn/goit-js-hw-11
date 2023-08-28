@@ -8,12 +8,11 @@ export async function fetchImagesByName(name) {
         params: {
             key: API_KEY,
             q: name,
-            image_type: photo,
-            orientation: horizontal,
+            image_type: "photo", 
+            orientation: "horizontal",
             safesearch: true,
             page: 1,
             per_page: 40,
-
         },
     });
 }
@@ -24,11 +23,11 @@ export async function fetchMoreImages(name, pageCount) {
         params: {
             key: API_KEY,
             q: name,
-            image_type: photo,
-            orientation: horizontal,
+            image_type: "photo",
+            orientation: "horizontal", 
             safesearch: true,
             page: pageCount,
             per_page: 40,
         },
     });
- }
+}
