@@ -27,33 +27,33 @@ class ImagesToFind {
 }
 
 
-async function findImages(objName) { 
+ async findImages(objName) {
     objName = this.name;
     try {
-        const obj = await fetchImagesByName(objName);
-        this.totalHits = obj.data.totalHits;
-        this.hits += obj.data.hits.length;
-        this.isFieldEmpty(this.hits, this.totalHits);
-        this.isOnePageOfImages(this.totalHits);
-        this.renderImages(obj.data.hits);
-    } catch (err) { 
-        Notify.failure(err.message);
+      const obj = await fetchImagesByName(objName);
+      this.totalHits = obj.data.totalHits;
+      this.hits += obj.data.hits.length;
+      this.isFieldEmpty(this.hits, this.totalHits);
+      this.isOnePageOfImages(this.totalHits);
+      this.renderImages(obj.data.hits);
+    } catch (err) {
+      console.log(err.message);
+      Notify.failure(err.message);
     }
-};
-
-async function handleMoreImages() {
-try {
-this.pageCount += 1;
-const nextPage = await fetchMoreImages(this.name, this.pageCount);
-
-this.hits += nextPage.data.hits.length;
-this.renderImages(nextPage.data.hits);
-this.doSmoothScroll();
-this.isEndOfImages ( ) ;
-} catch (err) {
-Notify. failure(err.message);
-}
-};
+  }
+  async handleMoreImages() {
+    try {
+      this.pageCount += 1;
+      const nextPage = await fetchMoreImages(this.name, this.pageCount);
+      this.hits += nextPage.data.hits.length;
+      this.renderImages(nextPage.data.hits);
+      this.doSmoothScroll();
+      this.isEndOfImages();
+    } catch (err) {
+      console.log(err.message);
+      Notify.failure(err.message);
+    }
+  }
 
 function isFielsEmpty(field, totalHits) { 
     if (field === 0) {
