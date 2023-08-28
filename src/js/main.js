@@ -28,7 +28,30 @@ class ImagesToFind {
 
 async findImages(objName) { 
     objName = this.name;
-    try { 
-        const obj = await fetchImagesByName(objName)
+    try {
+        const obj = await fetchImagesByName(objName);
+        this.totalHits = obj.data.totalHits;
+        this.hits += obj.data.hits.length;
+        this.isFieldEmpty(this.hits, this.totalHits);
+        this.renderImages(obj.data.hits);
+    } catch (err) { 
+        Notify.failure(err.message);
     }
+};
+
+async handleMoreImages() {
+try {
+this.pageCount += 1;
+const nextPage = await fetchMoreImages(this.name, this.pageCount);
+
+this.hits += nextPage.data.hits.length;
+this.renderImages(nextPage.data.hits);
+this.doSmoothScroll();
+this.isThereEndOfImages ( ) ;
+} catch (err) {
+Notify. failure(err.message);
 }
+};
+
+
+
